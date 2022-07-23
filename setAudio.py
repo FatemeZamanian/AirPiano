@@ -1,6 +1,6 @@
 import pysynth_p as ps
 
-t=(('f',2),)
+t=(('c',4),)
 
-ps.make_wav(t,fn='6.wav')
+ps.make_wav(t,fn='sounds/8.wav')
 

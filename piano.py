@@ -1,31 +1,10 @@
 import math
+import threading
 import cv2
 from playsound import playsound
 import mediapipe as mp
 from mediapipe.python.solutions import hands
 from mediapipe.framework.formats import landmark_pb2
-
-import beepy
-
-# import required module
-from beeply.notes import *
-
-# Creating obj of beeply
-# It's has another arg of duration
-# By default it's 900 ms
-a = beeps()
-
-# It's has another arg of duration
-# By default it's 900 ms
-a.hear('A_')
-
-
-print("Done ")
-
-# To acknowledge us
-a.hear("A")
-
-
 
 
 mp_drawing=mp.solutions.drawing_utils
@@ -80,14 +59,17 @@ with hands.Hands(min_detection_confidence=0.8,min_tracking_confidence=0.5) as ha
                 # temp=[]
                 # temp.append(results.multi_hand_landmarks[0].landmark[4])
                 if flagsound==False:
-                    # playsound(r'sounds/1.wav')
+                    t1=threading.Thread(target=playsound(r'sounds/1.wav'))
+                    t1.start()
                     # beepy.beep(sound=1)
-                    a = beeps(1154)
+                    # a = beeps(1154)
                     flagsound=True
                     print(11111)
+                    # t1.join()
                 
                 else:
                     flagsound=False
+                    
                 
                 # mp_drawing.draw_landmarks(image,mp_drawing.DrawingSpec(color=(102,0,204),thickness=10,circle_radius=10),mp_drawing.DrawingSpec(color=(102,0,204),thickness=10,circle_radius=10),landmark_list=temp)
 
@@ -95,39 +77,50 @@ with hands.Hands(min_detection_confidence=0.8,min_tracking_confidence=0.5) as ha
                 
             if base_1>abs(base.y-keypoints[1]['Y'])*1.3:
                 if flagsound==False:
-                    playsound(r'sounds/6.wav')
+                    t2=threading.Thread(target=playsound(r'sounds/6.wav'))
+                    t2.start()
                     flagsound=True
                     print(2222)
+                    # t2.join()
                 
                 else:
                     flagsound=False
+                    
                
             if base_2>abs(base.y-keypoints[2]['Y'])*1.3:
                 if flagsound==False:
-                    playsound(r'sounds/3.wav')
+                    t3=threading.Thread(target=playsound(r'sounds/3.wav'))
                     flagsound=True
+                    t3.start()
                     print(3333)
+                    # t3.join()
                 
                 else:
                     flagsound=False
+                    
                 
             if base_3>abs(base.y-keypoints[3]['Y'])*1.4:
                 if flagsound==False:
-                    playsound(r'sounds/4.wav')
+                    t4=threading.Thread(target=playsound(r'sounds/4.wav'))
                     flagsound=True
+                    t4.start()
                     print(4444)
                 
                 else:
                     flagsound=False
+                    # t4.join()
                 
             if base_4>abs(base.y-keypoints[4]['Y'])*1.5:
                 if flagsound==False:
-                    playsound(r'sounds/5.wav')
+                    t5=threading.Thread(target=playsound(r'sounds/5.wav'))
                     flagsound=True
+                    t5.start()
                     print(5555)
+                    # t5.join()
                 
                 else:
                     flagsound=False
+                    
                 
         else:
             counter=0
