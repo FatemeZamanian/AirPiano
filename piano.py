@@ -8,7 +8,6 @@ from mediapipe.framework.formats import landmark_pb2
 
 def play_sound(id):
     global flagsounds
-
     flagsounds[id] = True
     playsound(f'sounds/{id}.wav')
     flagsounds[id] = False
@@ -37,7 +36,6 @@ def main():
     
         image.flags.writeable=True
         image=cv2.cvtColor(image,cv2.COLOR_RGB2BGR)
-        h, w, c = image.shape
 
         if results.multi_hand_landmarks:
             counter+=1
