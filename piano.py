@@ -1,4 +1,3 @@
-import math
 import threading
 import cv2
 from playsound import playsound
@@ -7,22 +6,35 @@ from mediapipe.python.solutions import hands
 from mediapipe.framework.formats import landmark_pb2
 
 
-mp_drawing=mp.solutions.drawing_utils
-mp_hands=mp.solutions.hands
+def play_sound(id):
+    global flagsounds
+
+    flagsounds[id] = True
+    playsound(f'sounds/{id}.wav')
+    flagsounds[id] = False
 
 
-cap=cv2.VideoCapture(0)
-base_0=base_1=base_2=base_3=base_4=-1
-counter=0
-flagsound=False
-with hands.Hands(min_detection_confidence=0.8,min_tracking_confidence=0.5) as hands:
+def main():
+    global flagsounds
 
-    while cap.isOpened():
-        ret,frame=cap.read()
+    mp_drawing = mp.solutions.drawing_utils
+    mp_hands = mp.solutions.hands
+
+    flagsounds = [False, False, False, False, False]
+    cap = cv2.VideoCapture(0)
+    base_0 = base_1 = base_2 = base_3 = base_4 = -1
+    counter = 0
+
+    hands = mp_hands.Hands(min_detection_confidence=0.8,min_tracking_confidence=0.5)
+    while True:
+        ret, frame = cap.read()
+        if not ret:
+            break
         image=cv2.cvtColor(frame,cv2.COLOR_BGR2RGB)
         image.flags.writeable=False
 
         results=hands.process(image)
+    
         image.flags.writeable=True
         image=cv2.cvtColor(image,cv2.COLOR_RGB2BGR)
         h, w, c = image.shape
@@ -40,11 +52,10 @@ with hands.Hands(min_detection_confidence=0.8,min_tracking_confidence=0.5) as ha
             base=results.multi_hand_landmarks[0].landmark[0]
             keypoints = []
             for data_point in landmark_subset.landmark:
-                keypoints.append({
-                                    'X': data_point.x,
+                keypoints.append({'X': data_point.x,
                                     'Y': data_point.y,
                                     'Z': data_point.z
-                                    })
+                                })
         
             if counter==5:
                 base_0=abs(base.x-keypoints[0]['X'])
@@ -54,81 +65,41 @@ with hands.Hands(min_detection_confidence=0.8,min_tracking_confidence=0.5) as ha
                 base_4=abs(base.y-keypoints[4]['Y'])
                 cv2.putText(image,'Your hand saved...',(100,50), cv2.FONT_HERSHEY_SIMPLEX,1,(0,255,0),3)
 
-
             if base_0>abs(base.x-keypoints[0]['X'])*1.3 and base_0<abs(base.x-keypoints[0]['X'])*1.6:
-                # temp=[]
-                # temp.append(results.multi_hand_landmarks[0].landmark[4])
-                if flagsound==False:
-                    t1=threading.Thread(target=playsound(r'sounds/1.wav'))
-                    t1.start()
-                    # beepy.beep(sound=1)
-                    # a = beeps(1154)
-                    flagsound=True
-                    print(11111)
-                    # t1.join()
-                
-                else:
-                    flagsound=False
-                    
-                
-                # mp_drawing.draw_landmarks(image,mp_drawing.DrawingSpec(color=(102,0,204),thickness=10,circle_radius=10),mp_drawing.DrawingSpec(color=(102,0,204),thickness=10,circle_radius=10),landmark_list=temp)
+                if flagsounds[0] == False:
+                    thread = threading.Thread(target=play_sound, args=[0])
+                    thread.start()
 
-                # cv2.circle(image,(int(keypoints[0]['X']*100)+w, int(keypoints[0]['Y']*100)+h),radius=5, color=(255, 0, 255),thickness= cv2.FILLED)
-                
             if base_1>abs(base.y-keypoints[1]['Y'])*1.3:
-                if flagsound==False:
-                    t2=threading.Thread(target=playsound(r'sounds/6.wav'))
-                    t2.start()
-                    flagsound=True
-                    print(2222)
-                    # t2.join()
-                
-                else:
-                    flagsound=False
+                if flagsounds[1] == False:
+                    thread = threading.Thread(target=play_sound, args=[1])
+                    thread.start()
                     
-               
             if base_2>abs(base.y-keypoints[2]['Y'])*1.3:
-                if flagsound==False:
-                    t3=threading.Thread(target=playsound(r'sounds/3.wav'))
-                    flagsound=True
-                    t3.start()
-                    print(3333)
-                    # t3.join()
-                
-                else:
-                    flagsound=False
-                    
+                if flagsounds[2] == False:
+                    thread = threading.Thread(target=play_sound, args=[2])
+                    thread.start()
                 
             if base_3>abs(base.y-keypoints[3]['Y'])*1.4:
-                if flagsound==False:
-                    t4=threading.Thread(target=playsound(r'sounds/4.wav'))
-                    flagsound=True
-                    t4.start()
-                    print(4444)
-                
-                else:
-                    flagsound=False
-                    # t4.join()
+                if flagsounds[3] == False:
+                    thread = threading.Thread(target=play_sound, args=[3])
+                    thread.start()
                 
             if base_4>abs(base.y-keypoints[4]['Y'])*1.5:
-                if flagsound==False:
-                    t5=threading.Thread(target=playsound(r'sounds/5.wav'))
-                    flagsound=True
-                    t5.start()
-                    print(5555)
-                    # t5.join()
-                
-                else:
-                    flagsound=False
-                    
-                
+                if flagsounds[4] == False:
+                    thread = threading.Thread(target=play_sound, args=[4])
+                    thread.start()
+                        
         else:
             counter=0
     
         cv2.imshow('res',image)
-
-        if cv2.waitKey(30) & 0xFF == ord('q'):
+        if cv2.waitKey(1) & 0xFF == ord('q'):
             break
 
-cap.release()
-cv2.destroyAllWindows()
+    cap.release()
+    cv2.destroyAllWindows()
+
+
+if __name__ == "__main__":
+    main()
