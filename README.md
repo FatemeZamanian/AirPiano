@@ -20,8 +20,3 @@ To play, run the following command and hold your hand in front of the webcam:
 ```
 python piano.py 
 ```
-To test with multi threading, run the following command and hold your hand in front of the webcam:
-
-```
-python testthread.py 
-```
