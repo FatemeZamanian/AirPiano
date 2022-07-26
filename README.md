@@ -1,6 +1,6 @@
 ## AirPiano
 
-![photo_2022-07-24_23-59-56](https://user-images.githubusercontent.com/78360814/180663269-ec7d56af-b0b0-4e5a-962f-b203903599c5.jpg)
+https://user-images.githubusercontent.com/78360814/181053061-27bad560-1657-4360-8581-2707502b4c1a.mp4
 
 ## Requirements
 - Either Linux or Windows. We recommend Linux for better performance.
