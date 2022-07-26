@@ -1,6 +1,8 @@
 ## AirPiano
 
-![photo_2022-07-24_23-59-56](https://user-images.githubusercontent.com/78360814/180663269-ec7d56af-b0b0-4e5a-962f-b203903599c5.jpg)
+
+https://user-images.githubusercontent.com/78360814/181092875-fd5a4a15-c957-4720-8823-d46bea68c994.mp4
+
 
 ## Requirements
 - Either Linux or Windows. We recommend Linux for better performance.
@@ -19,9 +21,4 @@ To play, run the following command and hold your hand in front of the webcam:
 
 ```
 python piano.py 
-```
-To test with multi threading, run the following command and hold your hand in front of the webcam:
-
-```
-python testthread.py 
 ```
