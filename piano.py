@@ -20,7 +20,7 @@ def main():
     mp_hands = mp.solutions.hands
 
     flagsounds = [False, False, False, False, False]
-    cap = cv2.VideoCapture(0)
+    cap = cv2.VideoCapture(-1)
     base_0 = base_1 = base_2 = base_3 = base_4 = -1
     counter = 0
 
@@ -68,22 +68,22 @@ def main():
                     thread = threading.Thread(target=play_sound, args=[0])
                     thread.start()
 
-            if base_1>abs(base.y-keypoints[1]['Y'])*1.3:
+            if base_1>abs(base.y-keypoints[1]['Y'])*1.1:
                 if flagsounds[1] == False:
                     thread = threading.Thread(target=play_sound, args=[1])
                     thread.start()
                     
-            if base_2>abs(base.y-keypoints[2]['Y'])*1.3:
+            if base_2>abs(base.y-keypoints[2]['Y'])*1.1:
                 if flagsounds[2] == False:
                     thread = threading.Thread(target=play_sound, args=[2])
                     thread.start()
                 
-            if base_3>abs(base.y-keypoints[3]['Y'])*1.4:
+            if base_3>abs(base.y-keypoints[3]['Y'])*1.1:
                 if flagsounds[3] == False:
                     thread = threading.Thread(target=play_sound, args=[3])
                     thread.start()
                 
-            if base_4>abs(base.y-keypoints[4]['Y'])*1.5:
+            if base_4>abs(base.y-keypoints[4]['Y'])*1.1:
                 if flagsounds[4] == False:
                     thread = threading.Thread(target=play_sound, args=[4])
                     thread.start()
