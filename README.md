@@ -1,6 +1,7 @@
 ## AirPiano
 
-https://user-images.githubusercontent.com/78360814/181053061-27bad560-1657-4360-8581-2707502b4c1a.mp4
+![pi](https://user-images.githubusercontent.com/78360814/181054412-c0255ec0-6453-46f2-9dd9-572ddd6936b9.gif)
+
 
 ## Requirements
 - Either Linux or Windows. We recommend Linux for better performance.
